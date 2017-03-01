@@ -1,6 +1,5 @@
 #include "filsys.h"
 
-
 Inode::Inode() {
 }
 
@@ -24,13 +23,13 @@ Inode::parse ( std::shared_ptr <BlockDevice> bd, uint16_t size) {
 		node->i_size0 = bd->readChar(); 
 		node->i_size1 = bd->readShort();
 
-		for (int i = 0; i < ARR_SIZE(node->i_addr ); ++i ) { 
+		for (int i = 0; i < ARR_SIZE(node->i_addr ); ++i ) {
 			node->i_addr[i] = bd->readShort();
 		}
-		for (int i = 0; i < ARR_SIZE(node->i_atime ) ; ++i ) { 
+		for (int i = 0; i < ARR_SIZE(node->i_atime ) ; ++i ) {
 			node->i_atime[i] = bd->readShort();
 		}
-		for (int i = 0; i < ARR_SIZE(node->i_atime); ++i ) { 
+		for (int i = 0; i < ARR_SIZE(node->i_atime); ++i ) {
 			node->i_atime[i] = bd->readShort();
 		}
 
@@ -39,10 +38,8 @@ Inode::parse ( std::shared_ptr <BlockDevice> bd, uint16_t size) {
 		node->isLarge = ((node->i_mode >> 12) & 1) == 1;
 		list->push_back(std::move(node));
 	}
-
 	return std::move(list);
 }
-
 
 void Inode::createIndex( std::shared_ptr<BlockDevice> bd) { 
 	table.reset (new StringIntMap());
@@ -63,7 +60,7 @@ void Inode::createIndex( std::shared_ptr<BlockDevice> bd) {
 				table->insert(std::make_pair(name, ino_num));
 			}
 		}
-		if (! remaining) break;
+		if (!remaining) break;
 	}
 }
 
@@ -107,8 +104,8 @@ std::string Inode::getChildrenDetail (std::shared_ptr <std::vector <std::shared_
 		char g_w = ((i_mode & 0x10) != 0) ? 'w' : '-';
 		char g_x = ((i_mode & 0x20) != 0) ? 'x' : '-';
 		char u_r = ((i_mode & 0x30) != 0) ? 'r' : '-';
-		char u_w = ((i_mode & 0x40) != 0) ? 'w' : '-'; 
-		char u_x = ((i_mode & 0x50) != 0) ? 'x' : '-'; 
+		char u_w = ((i_mode & 0x40) != 0) ? 'w' : '-';
+		char u_x = ((i_mode & 0x50) != 0) ? 'x' : '-';
 		fprintf(stderr, "i_mode = %x\n", i_mode);
 		sprintf(buf , "%c%c%c%c%c%c%c%c%c%c   %8d   %s\n" ,
 				dir, u_r,u_w,u_x, g_r,g_w,g_x, o_r,o_w,o_x, size, it->first.c_str()); 

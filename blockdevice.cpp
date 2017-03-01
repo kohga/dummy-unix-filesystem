@@ -7,7 +7,7 @@
 BlockDevice::BlockDevice() : p(0), data(nullptr) {
 }
 
-BlockDevice::BlockDevice(const std::string path) : BlockDevice() { 
+BlockDevice::BlockDevice(const std::string path) : BlockDevice() {
 	struct stat st;
 	stat((this->path = path).c_str(), &st );
 	std::ifstream fin;
@@ -19,10 +19,10 @@ BlockDevice::BlockDevice(const std::string path) : BlockDevice() {
 	fin.close ();
 }
 
-BlockDevice::~BlockDevice() { 
+BlockDevice::~BlockDevice() {
 }
 
-void BlockDevice::setIndex( uint32_t p) { 
+void BlockDevice::setIndex( uint32_t p) {
 	this->p = p;
 }
 
@@ -35,8 +35,8 @@ uint8_t BlockDevice::readChar() {
 	return data [p++];
 }
 
-std::string BlockDevice::readString() { 
-	std::string s = (char*)&data [p]; 
+std::string BlockDevice::readString() {
+	std::string s = (char*)&data [p];
 	p += (s.length() + 1);
 	return s;
 }
@@ -44,7 +44,7 @@ std::string BlockDevice::readString() {
 void BlockDevice::show() {
 	for (int i = 0; i < 32; ++i) {
 		if (i % 16 == 0) printf("\n");
-		printf("%02x ", data [i ]);
+		printf("%02x ", data [i]);
 	}
 	printf("\n");
 }
