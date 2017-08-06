@@ -1,14 +1,19 @@
 # Dummy Unix File System
-## 内容
+
+Note:  
 UnixV6のファイルシステムをC++で擬似的に再現したもの。  
 テストデータ(TestBlockDevice)は、UnixV6のファイル構造になっている。  
 当ファイルシステムは、(bashで使用されるような)各コマンドを実装している。
 
 ## 実行方法
-`$ make`  
-`$ ./dummyFS`  
-or  
-`$ make run`
+```
+$ make  
+$ ./dummyFS
+```
+or
+```
+$ make run
+```
 
 ## コマンドの種類
 - ls
